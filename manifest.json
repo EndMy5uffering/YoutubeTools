@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "YoutubeTools",
+    "version": "0",
+    "description": "A tool for youtube",
+    "content_scripts": [
+      {
+        "matches": ["https://*.youtube.com/*"],
+        "js": ["yt_tools.js"]
+      }
+    ],
+    "action": {
+      "default_title": "YoutubeTools",
+      "default_popup": "popup.html"
+    }
+}
