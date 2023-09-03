@@ -22,8 +22,8 @@ function yt_tools_add_buttons() {
     })
 }
 
-function remove_butons(){
-    ADDED_BUTTONS.forEach(e => document.removeChild(e))
+function remove_buttons(){
+    ADDED_BUTTONS.forEach(e => e.remove())
     while(ADDED_BUTTONS.length)
         ADDED_BUTTONS.pop()
 }
@@ -35,7 +35,7 @@ chrome.runtime.onMessage.addListener(
                 yt_tools_add_buttons()
                 break;
             case "remove_menue":
-                remove_butons()
+                remove_buttons()
                 break;
             default:
                 alert("Unknown action: " + request.action)
@@ -43,3 +43,15 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
+
+window.addEventListener("load", () => {
+    yt_tools_add_buttons()
+    const yt_browse_area = document.querySelector("ytd-browse");
+    const config = { childList: true, subtree: true };
+    const callback = (mutationList, observer) => {
+        console.log("Mutation")
+    }
+
+    const observer = new MutationObserver(callback);
+    observer.observe(yt_browse_area, config);
+}, false);
